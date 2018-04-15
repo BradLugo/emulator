@@ -1,4 +1,4 @@
-set(EMULATOR_SOURCES emulator.c emulator.h)
+set(EMULATOR_SOURCES emulator.c emulator.h components.c components.h)
 set(MAIN_SOURCES main.c)
 
 add_library(emulator ${EMULATOR_SOURCES})
