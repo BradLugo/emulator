@@ -54,3 +54,6 @@ fabric.properties
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# C tests
+run.bash

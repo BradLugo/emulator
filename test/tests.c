@@ -63,9 +63,37 @@ void test_full_adder(void)
     TEST_ASSERT_EQUAL(1, c);
 }
 
+void test_demux_1to4(void){
+    int input = 0;
+    int A = -1;
+    int B = -1;
+    int C = -1;
+    int D = -1;
+
+    demux_1to4(input, 0, 0, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, A);
+    demux_1to4(input, 0, 1, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, B);
+    demux_1to4(input, 1, 0, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, C);
+    demux_1to4(input, 1, 1, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, D);
+
+    input = 1;
+    demux_1to4(input, 0, 0, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, A);
+    demux_1to4(input, 0, 1, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, B);
+    demux_1to4(input, 1, 0, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, C);
+    demux_1to4(input, 1, 1, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, D);
+
+}
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_half_adder);
     RUN_TEST(test_full_adder);
+    RUN_TEST(test_demux_1to4);
     return UNITY_END();
 }
