@@ -81,18 +81,18 @@ void test_mux_2to1(void){
 void test_mux_4to1(void){
     int s0 = 0;
     int s1 = 0;
-    TEST_ASSERT_EQUAL(0, mux_4to1(0, 0, 0, 0, s0, s1));
-    TEST_ASSERT_EQUAL(1, mux_4to1(1, 0, 0, 0, s0, s1));
+    TEST_ASSERT_EQUAL(0, mux_4to1(0, 0, 0, 0, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_4to1(1, 0, 0, 0, s1, s0));
     s0 = 1;
-    TEST_ASSERT_EQUAL(0, mux_4to1(0, 0, 0, 0, s0, s1));
-    TEST_ASSERT_EQUAL(1, mux_4to1(0, 1, 0, 0, s0, s1)); //failed
+    TEST_ASSERT_EQUAL(0, mux_4to1(0, 0, 0, 0, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_4to1(0, 1, 0, 0, s1, s0)); //failed
     s0 = 0;
     s1 = 1;
-    TEST_ASSERT_EQUAL(0, mux_4to1(0, 0, 0, 0, s0, s1));
-    TEST_ASSERT_EQUAL(1, mux_4to1(0, 0, 1, 0, s0, s1));
+    TEST_ASSERT_EQUAL(0, mux_4to1(0, 0, 0, 0, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_4to1(0, 0, 1, 0, s1, s0));
     s0 = 1;
-    TEST_ASSERT_EQUAL(0, mux_4to1(0, 0, 0, 0, s0, s1));
-    TEST_ASSERT_EQUAL(1, mux_4to1(0, 0, 0, 1, s0, s1));
+    TEST_ASSERT_EQUAL(0, mux_4to1(0, 0, 0, 0, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_4to1(0, 0, 0, 1, s1, s0));
 
 }
 
@@ -100,33 +100,33 @@ void test_mux_8to1(void){
     int s0 = 0;
     int s1 = 0;
     int s2 = 0;
-    TEST_ASSERT_EQUAL(0, mux_8to1(0, 1, 1, 1, 1, 1, 1, 1, s0, s1, s2));
-    TEST_ASSERT_EQUAL(1, mux_8to1(1, 0, 0, 0, 0, 0, 0, 0, s0, s1, s2));
-    s2 = 1;
-    TEST_ASSERT_EQUAL(0, mux_8to1(1, 0, 1, 1, 1, 1, 1, 1, s0, s1, s2));
-    TEST_ASSERT_EQUAL(1, mux_8to1(0, 1, 0, 0, 0, 0, 0, 0, s0, s1, s2));
-    s1 = 1;
-    s2 = 0;
-    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 0, 1, 1, 1, 1, 1, s0, s1, s2));
-    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 1, 0, 0, 0, 0, 0, s0, s1, s2));
-    s2 = 1;
-    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 0, 1, 1, 1, 1, s0, s1, s2));
-    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 1, 0, 0, 0, 0, s0, s1, s2));
+    TEST_ASSERT_EQUAL(0, mux_8to1(0, 1, 1, 1, 1, 1, 1, 1, s2, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_8to1(1, 0, 0, 0, 0, 0, 0, 0, s2, s1, s0));
     s0 = 1;
-    s1 = 0;
-    s2 = 0;
-    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 1, 0, 1, 1, 1, s0, s1, s2));
-    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 0, 1, 0, 0, 0, s0, s1, s2));
-    s2 = 1;
-    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 1, 1, 0, 1, 1, s0, s1, s2));
-    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 0, 0, 1, 0, 0, s0, s1, s2));
+    TEST_ASSERT_EQUAL(0, mux_8to1(1, 0, 1, 1, 1, 1, 1, 1, s2, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_8to1(0, 1, 0, 0, 0, 0, 0, 0, s2, s1, s0));
     s1 = 1;
-    s2 = 0;
-    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 1, 1, 1, 0, 1, s0, s1, s2));
-    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 0, 0, 0, 1, 0, s0, s1, s2));
+    s0 = 0;
+    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 0, 1, 1, 1, 1, 1, s2, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 1, 0, 0, 0, 0, 0, s2, s1, s0));
+    s0 = 1;
+    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 0, 1, 1, 1, 1, s2, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 1, 0, 0, 0, 0, s2, s1, s0));
     s2 = 1;
-    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 1, 1, 1, 1, 0, s0, s1, s2));
-    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 0, 0, 0, 0, 1, s0, s1, s2));
+    s1 = 0;
+    s0 = 0;
+    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 1, 0, 1, 1, 1, s2, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 0, 1, 0, 0, 0, s2, s1, s0));
+    s0 = 1;
+    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 1, 1, 0, 1, 1, s2, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 0, 0, 1, 0, 0, s2, s1, s0));
+    s1 = 1;
+    s0 = 0;
+    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 1, 1, 1, 0, 1, s2, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 0, 0, 0, 1, 0, s2, s1, s0));
+    s0 = 1;
+    TEST_ASSERT_EQUAL(0, mux_8to1(1, 1, 1, 1, 1, 1, 1, 0, s2, s1, s0));
+    TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 0, 0, 0, 0, 1, s2, s1, s0));
 }
 
 int main(void) {
