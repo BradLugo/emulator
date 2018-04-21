@@ -1,15 +1,15 @@
 #include "demultiplexer.h"
 
-void demux_1to4(int input, int sel1, int sel2, int *A, int *B, int *C, int *D){
+void demux_1to4(int input, int sel1, int sel0, int *A, int *B, int *C, int *D){
 	if(sel1){
-		if(sel2){
+		if(sel0){
 			*D = input;
 			return;
 		}
 		*C = input;
 		return;
 	}
-	if(sel2){
+	if(sel0){
 		*B = input;
 		return;
 	}
