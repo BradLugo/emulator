@@ -45,7 +45,7 @@ int init_emulator(char *filename)
         memcpy(&MEMORY[15][j], &buff, sizeof(unsigned char));
         j++;
     }
-    MEMORY[15][j] = '\0';
+    MEMORY[15][j] = 0xFF;
 
     //Set the state of any structures here
     return 0;
