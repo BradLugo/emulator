@@ -1,7 +1,3 @@
-//
-// Created by Christian Lugo on 2/13/18.
-//
-
 #include "emulator.h"
 
 int half_adder(int a, int b, int *cout)
