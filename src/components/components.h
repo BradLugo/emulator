@@ -17,4 +17,6 @@ int mux_8_to_1(int d0, int d1, int d2, int d3, int d4, int d5, int d6, int d7, i
 
 void demux_2_to_4(int input, int sel1, int sel0, int *A, int *B, int *C, int *D);
 
+void register_component(int *input, int* cs, int *clock, int *output);
+
 #endif //COMPONENTS_H
