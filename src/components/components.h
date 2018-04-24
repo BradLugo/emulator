@@ -9,6 +9,8 @@ int not(int a);
 
 int xor(int a, int b);
 
+void adder_subtractor(int *a, int *b, int *cin, int *out, int *carry, int *sign, int *zero, int *overflow);
+
 int mux_2_to_1(int d0, int d1, int s0);
 
 int mux_4_to_1(int d0, int d1, int d2, int d3, int s1, int s0);
