@@ -144,7 +144,33 @@ void test_logging(void)
     free(log_message);
 }
 
+void test_demux_2to4(void){
+    int input = 0;
+    int A = -1;
+    int B = -1;
+    int C = -1;
+    int D = -1;
 
+    demux_2to4(input, 0, 0, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, A);
+    demux_2to4(input, 0, 1, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, B);
+    demux_2to4(input, 1, 0, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, C);
+    demux_2to4(input, 1, 1, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, D);
+
+    input = 1;
+    demux_2to4(input, 0, 0, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, A);
+    demux_2to4(input, 0, 1, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, B);
+    demux_2to4(input, 1, 0, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, C);
+    demux_2to4(input, 1, 1, &A, &B, &C, &D);
+    TEST_ASSERT_EQUAL(input, D);
+
+}
 int main(void) {
     UNITY_BEGIN();
 
@@ -155,9 +181,10 @@ int main(void) {
 
     RUN_TEST(test_logging);
 
-    RUN_TEST(test_mux_2to1);
     RUN_TEST(test_mux_4to1);
     RUN_TEST(test_mux_8to1);
+	
+	RUN_TEST(test_demux_2to4);
 
     return UNITY_END();
 }
