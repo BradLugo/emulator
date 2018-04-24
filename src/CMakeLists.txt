@@ -1,4 +1,4 @@
-set(EMULATOR_SOURCES emulator.c emulator.h)
+set(EMULATOR_SOURCES emulator.c emulator.h components.c components.h)
 set(MULTIPLEXER_SOURCES multiplexer.c multiplexer.h)
 set(MAIN_SOURCES main.c)
 
