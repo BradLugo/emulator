@@ -1,4 +1,5 @@
 #include "components.h"
+#include "../logger/logger.h"
 
 int and(int a, int b) {
     return a && b;
@@ -14,6 +15,29 @@ int not(int a) {
 
 int xor(int a, int b) {
     return a != b;
+}
+
+void adder_subtractor(int *a, int *b, int *cin, int *out, int *carry, int *sign, int *zero, int *overflow) {
+    if (*cin) {
+        *out = *a - *b;
+    } else {
+        *out = *a + *b;
+    }
+
+    if (*out >= 0) {
+        *carry = (*out >> 8) & 1;
+    } else {
+        *carry = !((*out >> 8) & 1);
+    }
+
+    *sign = *out < 0;
+    *zero = *out == 0;
+
+    if (*out >= 0) {
+        *overflow = (*out >> 9) & 1;
+    } else {
+        *overflow = !((*out >> 9) & 1);
+    }
 }
 
 int mux_2_to_1(int d0, int d1, int s0) {
