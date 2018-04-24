@@ -1,7 +1,11 @@
+#include <time.h>
+#include <stdlib.h>
+#include <memory.h>
 #include "unity.h"
 #include "components.h"
 #include "emulator.h"
 #include "multiplexer.h"
+#include "logger.h"
 
 void setUp(void)
 {
@@ -106,16 +110,54 @@ void test_mux_8to1(void){
     TEST_ASSERT_EQUAL(1, mux_8to1(0, 0, 0, 0, 0, 0, 0, 1, s2, s1, s0));
 }
 
+void test_logging(void)
+{
+    char *message = "test123";
+    char compare[1024];
+    char *log_message;
+    time_t now;
+    time(&now);
+
+    sprintf(compare, "%s [%s]: %s", ctime(&now), "DEBUG", message);
+    log_message = generate_log_message(DEBUG_LOG_LEVEL, message, now, 1024);
+    TEST_ASSERT(strcmp(compare, log_message) == 0);
+    free(log_message);
+
+    sprintf(compare, "%s [%s]: %s", ctime(&now), "INFO", message);
+    log_message = generate_log_message(INFO_LOG_LEVEL, message, now, 1024);
+    TEST_ASSERT(strcmp(compare, log_message) == 0);
+    free(log_message);
+
+    sprintf(compare, "%s [%s]: %s", ctime(&now), "WARN", message);
+    log_message = generate_log_message(WARN_LOG_LEVEL, message, now, 1024);
+    TEST_ASSERT(strcmp(compare, log_message) == 0);
+    free(log_message);
+
+    sprintf(compare, "%s [%s]: %s", ctime(&now), "ERROR", message);
+    log_message = generate_log_message(ERROR_LOG_LEVEL, message, now, 1024);
+    TEST_ASSERT(strcmp(compare, log_message) == 0);
+    free(log_message);
+
+    sprintf(compare, "%s [%s]: %s", ctime(&now), "FATAL", message);
+    log_message = generate_log_message(FATAL_LOG_LEVEL, message, now, 1024);
+    TEST_ASSERT(strcmp(compare, log_message) == 0);
+    free(log_message);
+}
+
+
 int main(void) {
     UNITY_BEGIN();
+
     RUN_TEST(test_and);
     RUN_TEST(test_or);
     RUN_TEST(test_not);
     RUN_TEST(test_xor);
-    RUN_TEST(test_half_adder);
-    RUN_TEST(test_full_adder);
+
+    RUN_TEST(test_logging);
+
     RUN_TEST(test_mux_2to1);
     RUN_TEST(test_mux_4to1);
     RUN_TEST(test_mux_8to1);
+
     return UNITY_END();
 }
