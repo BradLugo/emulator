@@ -172,7 +172,32 @@ void test_demux_2_to_4(void) {
     TEST_ASSERT_EQUAL(input, C);
     demux_2_to_4(input, 1, 1, &A, &B, &C, &D);
     TEST_ASSERT_EQUAL(input, D);
+}
 
+void test_register_component(void) {
+    int input = 0;
+    int clock = 0;
+    int cs = 0;
+    int output = 0;
+
+    register_component(&input, &cs, &clock, &output);
+    TEST_ASSERT_EQUAL(output, 0);
+
+    input = 1;
+    register_component(&input, &cs, &clock, &output);
+    TEST_ASSERT_EQUAL(output, 0);
+
+    cs = 1;
+    register_component(&input, &cs, &clock, &output);
+    TEST_ASSERT_EQUAL(output, 0);
+
+    clock = 1;
+    register_component(&input, &cs, &clock, &output);
+    TEST_ASSERT_EQUAL(output, 1);
+
+    input = 0;
+    register_component(&input, &cs, &clock, &output);
+    TEST_ASSERT_EQUAL(output, 0);
 }
 
 int main(void) {
@@ -190,6 +215,8 @@ int main(void) {
     RUN_TEST(test_mux_8_to_1);
 
     RUN_TEST(test_demux_2_to_4);
+
+    RUN_TEST(test_register_component);
 
     return UNITY_END();
 }

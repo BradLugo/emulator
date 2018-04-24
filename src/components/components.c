@@ -92,3 +92,9 @@ void demux_2_to_4(int input, int sel1, int sel0, int *A, int *B, int *C, int *D)
     }
     *A = input;
 }
+
+void register_component(int *input, int* cs, int *clock, int *output) {
+    if (*cs && *clock) {
+        *output = *input;
+    }
+}
