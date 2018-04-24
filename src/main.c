@@ -12,7 +12,7 @@ int main() {
     int B = -1;
     int C = -1;
     int D = -1;
-    demux_1to4(input, 0, 0, &A, &B, &C, &D);
+    demux_2to4(input, 0, 0, &A, &B, &C, &D);
     printf("A: %d B: %d C: %d, D: %d\n", A, B, C, D);
     return 0;
 }
