@@ -1,6 +1,8 @@
 #ifndef EMULATOR_LOGGER_H
 #define EMULATOR_LOGGER_H
 
+#include <time.h>
+
 typedef enum {
     DEBUG_LOG_LEVEL,
     INFO_LOG_LEVEL,
