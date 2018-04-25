@@ -6,32 +6,38 @@
 
 char *generate_log_message(const LOG_LEVEL log_level, const char *message, time_t now) {
     char str[BUFFER_SIZE];
+    char timestr[64];
     char *out;
 
     switch (log_level) {
         case DEBUG_LOG_LEVEL:
-            sprintf(str, "%s [%s]: %s", ctime(&now), "DEBUG", message);
+            strftime(timestr, 64, "%c", localtime(&now));
+            sprintf(str, "%s [%s]: %s", timestr, "DEBUG", message);
             out = (char *) malloc(strlen(str) + 1);
             strcpy(out, str);
             break;
         case INFO_LOG_LEVEL:
-            sprintf(str, "%s [%s]: %s", ctime(&now), "INFO", message);
+            strftime(timestr, 64, "%c", localtime(&now));
+            sprintf(str, "%s [%s]: %s", timestr, "INFO", message);
             out = (char *) malloc(strlen(str) + 1);
             strcpy(out, str);
             break;
         case WARN_LOG_LEVEL:
-            sprintf(str, "%s [%s]: %s", ctime(&now), "WARN", message);
+            strftime(timestr, 64, "%c", localtime(&now));
+            sprintf(str, "%s [%s]: %s", timestr, "WARN", message);
             out = (char *) malloc(strlen(str) + 1);
             strcpy(out, str);
             break;
         case ERROR_LOG_LEVEL:
-            sprintf(str, "%s [%s]: %s", ctime(&now), "ERROR", message);
+            strftime(timestr, 64, "%c", localtime(&now));
+            sprintf(str, "%s [%s]: %s", timestr, "ERROR", message);
             out = (char *) malloc(strlen(str) + 1);
             strcpy(out, str);
             break;
         case FATAL_LOG_LEVEL:
         default:
-            sprintf(str, "%s [%s]: %s", ctime(&now), "FATAL", message);
+            strftime(timestr, 64, "%c", localtime(&now));
+            sprintf(str, "%s [%s]: %s", timestr, "FATAL", message);
             out = (char *) malloc(strlen(str) + 1);
             strcpy(out, str);
     }
