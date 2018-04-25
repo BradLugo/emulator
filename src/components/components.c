@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "components.h"
-#include "logger.h"
 
 void and_action(and_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "AND component action called");
@@ -62,10 +61,29 @@ void xor_action(xor_component_ptr component_ptr) {
     sprintf(str, "Output before action :: %d", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 
+}
     component_ptr->output = component_ptr->input_0 ^ component_ptr->input_1;
+void adder_subtractor(int *a, int *b, int *cin, int *out, int *carry, int *sign, int *zero, int *overflow) {
+    if (*cin) {
+        *out = *a - *b;
+    } else {
+        *out = *a + *b;
+    }
 
+    if (*out >= 0) {
+        *carry = (*out >> 8) & 1;
+    } else {
+        *carry = !((*out >> 8) & 1);
+    }
     sprintf(str, "Output after action :: %d\n", component_ptr->output);
+    *sign = *out < 0;
+    *zero = *out == 0;
     log_message(DEBUG_LOG_LEVEL, str);
+    if (*out >= 0) {
+        *overflow = (*out >> 9) & 1;
+    } else {
+        *overflow = !((*out >> 9) & 1);
+    }
 }
 
 void mux_2_to_1_action(mux_2_to_1_component_ptr component_ptr) {

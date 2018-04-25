@@ -66,7 +66,6 @@ typedef struct demux_2_to_4_component {
     unsigned int output_3;
 } *demux_2_to_4_component_ptr;
 
-typedef struct register_component {
     unsigned int input;
     unsigned int select;
     unsigned int clock;
