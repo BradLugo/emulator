@@ -15,7 +15,7 @@ void and_action(and_component_ptr component_ptr) {
 
     component_ptr->output = component_ptr->input_0 & component_ptr->input_1;
 
-    sprintf(str, "Output after action :: %d", component_ptr->output);
+    sprintf(str, "Output after action :: %d\n", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 }
 
@@ -32,7 +32,7 @@ void or_action(or_component_ptr component_ptr) {
 
     component_ptr->output = component_ptr->input_0 | component_ptr->input_1;
 
-    sprintf(str, "Output after action :: %d", component_ptr->output);
+    sprintf(str, "Output after action :: %d\n", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 }
 
@@ -47,11 +47,11 @@ void not_action(not_component_ptr component_ptr) {
 
     component_ptr->output = ~ component_ptr->input;
 
-    sprintf(str, "Output after action :: %d", component_ptr->output);
+    sprintf(str, "Output after action :: %d\n", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 }
 
-void xor_component(xor_component_ptr component_ptr) {
+void xor_action(xor_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "XOR component action called");
 
     char str[BUFFER_SIZE/2];
@@ -64,7 +64,7 @@ void xor_component(xor_component_ptr component_ptr) {
 
     component_ptr->output = component_ptr->input_0 ^ component_ptr->input_1;
 
-    sprintf(str, "Output after action :: %d", component_ptr->output);
+    sprintf(str, "Output after action :: %d\n", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 }
 
@@ -93,7 +93,7 @@ void mux_2_to_1_action(mux_2_to_1_component_ptr component_ptr) {
         component_ptr->output = component_ptr->input_0;
     }
 
-    sprintf(str, "Output after action :: %d", component_ptr->output);
+    sprintf(str, "Output after action :: %d\n", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 }
 
@@ -145,7 +145,7 @@ void mux_4_to_1_action(mux_4_to_1_component_ptr component_ptr) {
         component_ptr->output = component_ptr->input_0;
     }
 
-    sprintf(str, "Output after action :: %d", component_ptr->output);
+    sprintf(str, "Output after action :: %d\n", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 }
 
@@ -242,7 +242,7 @@ void mux_8_to_1_action(mux_8_to_1_component_ptr component_ptr) {
         }
     }
 
-    sprintf(str, "Output after action :: %d", component_ptr->output);
+    sprintf(str, "Output after action :: %d\n", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 }
 
@@ -285,7 +285,7 @@ void demux_2_to_4_action(demux_2_to_4_component_ptr component_ptr) {
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Output_2 after action :: %d", component_ptr->output_2);
     log_message(DEBUG_LOG_LEVEL, str);
-    sprintf(str, "Output_3 after action :: %d", component_ptr->output_3);
+    sprintf(str, "Output_3 after action :: %d\n", component_ptr->output_3);
     log_message(DEBUG_LOG_LEVEL, str);
 }
 
@@ -306,6 +306,6 @@ void register_component_action(register_component_ptr component_ptr) {
         component_ptr->output = component_ptr->input;
     }
 
-    sprintf(str, "Output after action :: %d", component_ptr->output);
+    sprintf(str, "Output after action :: %d\n", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 }

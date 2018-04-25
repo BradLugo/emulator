@@ -79,7 +79,7 @@ void or_action(or_component_ptr component_ptr);
 
 void not_action(not_component_ptr component_ptr);
 
-void xor_component(xor_component_ptr component_ptr);
+void xor_action(xor_component_ptr component_ptr);
 
 void mux_2_to_1_action(mux_2_to_1_component_ptr component_ptr);
 
