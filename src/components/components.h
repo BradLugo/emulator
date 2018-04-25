@@ -1,22 +1,94 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 
-int and(int a, int b);
+typedef struct and_component {
+    unsigned int input_0;
+    unsigned int input_1;
+    unsigned int output;
+} *and_component_ptr;
 
-int or(int a, int b);
+typedef struct or_component {
+    unsigned int input_0;
+    unsigned int input_1;
+    unsigned int output;
+} *or_component_ptr;
 
-int not(int a);
+typedef struct not_component {
+    unsigned int input;
+    unsigned int output;
+} *not_component_ptr;
 
-int xor(int a, int b);
+typedef struct xor_component {
+    unsigned int input_0;
+    unsigned int input_1;
+    unsigned int output;
+} *xor_component_ptr;
 
-int mux_2_to_1(int d0, int d1, int s0);
+typedef struct mux_2_to_1_component {
+    unsigned int input_0;
+    unsigned int input_1;
+    unsigned int select_0;
+    unsigned int output;
+} *mux_2_to_1_component_ptr;
 
-int mux_4_to_1(int d0, int d1, int d2, int d3, int s1, int s0);
+typedef struct mux_4_to_1_component {
+    unsigned int input_0;
+    unsigned int input_1;
+    unsigned int input_2;
+    unsigned int input_3;
+    unsigned int select_0;
+    unsigned int select_1;
+    unsigned int output;
+} *mux_4_to_1_component_ptr;
 
-int mux_8_to_1(int d0, int d1, int d2, int d3, int d4, int d5, int d6, int d7, int s2, int s1, int s0);
+typedef struct mux_8_to_1_component {
+    unsigned int input_0;
+    unsigned int input_1;
+    unsigned int input_2;
+    unsigned int input_3;
+    unsigned int input_4;
+    unsigned int input_5;
+    unsigned int input_6;
+    unsigned int input_7;
+    unsigned int select_0;
+    unsigned int select_1;
+    unsigned int select_2;
+    unsigned int output;
+} *mux_8_to_1_component_ptr;
 
-void demux_2_to_4(int input, int sel1, int sel0, int *A, int *B, int *C, int *D);
+typedef struct demux_2_to_4_component {
+    unsigned int input;
+    unsigned int select_0;
+    unsigned int select_1;
+    unsigned int output_0;
+    unsigned int output_1;
+    unsigned int output_2;
+    unsigned int output_3;
+} *demux_2_to_4_component_ptr;
 
-void register_component(int *input, int* cs, int *clock, int *output);
+typedef struct register_component {
+    unsigned int input;
+    unsigned int select;
+    unsigned int clock;
+    unsigned int output;
+} *register_component_ptr;
+
+void and_action(and_component_ptr component_ptr);
+
+void or_action(or_component_ptr component_ptr);
+
+void not_action(not_component_ptr component_ptr);
+
+void xor_component(xor_component_ptr component_ptr);
+
+void mux_2_to_1_action(mux_2_to_1_component_ptr component_ptr);
+
+void mux_4_to_1_action(mux_4_to_1_component_ptr component_ptr);
+
+void mux_8_to_1_action(mux_8_to_1_component_ptr component_ptr);
+
+void demux_2_to_4_action(demux_2_to_4_component_ptr component_ptr);
+
+void register_component_action(register_component_ptr component_ptr);
 
 #endif //COMPONENTS_H

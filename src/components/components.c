@@ -1,100 +1,99 @@
 #include "components.h"
+#include "logger.h"
 
-int and(int a, int b) {
-    return a && b;
+void and_action(and_component_ptr component_ptr) {
+    component_ptr->output = component_ptr->input_0 & component_ptr->input_1;
 }
 
-int or(int a, int b) {
-    return a || b;
+void or_action(or_component_ptr component_ptr) {
+    component_ptr->output = component_ptr->input_0 | component_ptr->input_1;
 }
 
-int not(int a) {
-    return !a;
+void not_action(not_component_ptr component_ptr) {
+    component_ptr->output = ~ component_ptr->input;
 }
 
-int xor(int a, int b) {
-    return a != b;
+void xor_component(xor_component_ptr component_ptr) {
+    component_ptr->output = component_ptr->input_0 ^ component_ptr->input_1;
 }
 
-int mux_2_to_1(int d0, int d1, int s0) {
-    if (s0) {
-        return d1;
-    }
-    return d0;
-}
-
-int mux_4_to_1(int d0, int d1, int d2, int d3, int s1, int s0) {
-    //if true return one of bottom 2
-    if (s1) {
-        //if true return bottom
-        if (s0) {
-            return d3;
-        }
-        return d2;
-    }
-    //else return one of top 2
-    if (s0) {
-        return d1;
-    }
-    return d0;
-
-}
-
-int mux_8_to_1(int d0, int d1, int d2, int d3, int d4, int d5, int d6, int d7, int s2, int s1, int s0) {
-    //if true return one of bottom 4
-    if (s2) {
-        if (s1) {
-            if (s0) {
-                //1 1 1
-                return d7;
-            }
-            //1 1 0
-            return d6;
-        } else {
-            if (s0) {
-                //1 0 1
-                return d5;
-            }
-        }
-        //1 0 0
-        return d4;
-    }
-    //else return one of top 4
-    if (s1) {
-        if (s0) {
-            //0 1 1
-            return d3;
-        }
-        //0 1 0
-        return d2;
+void mux_2_to_1_action(mux_2_to_1_component_ptr component_ptr) {
+    if (component_ptr->select_0) {
+        component_ptr->output = component_ptr->input_1;
     } else {
-        if (s0) {
-            //0 0 1
-            return d1;
-        }
+        component_ptr->output = component_ptr->input_0;
     }
-    //0 0 0
-    return d0;
 }
 
-void demux_2_to_4(int input, int sel1, int sel0, int *A, int *B, int *C, int *D) {
-    if (sel1) {
-        if (sel0) {
-            *D = input;
-            return;
+void mux_4_to_1_action(mux_4_to_1_component_ptr component_ptr) {
+    // TODO :: Check if multiple selects are on
+    if (component_ptr->select_1) {
+        if (component_ptr->select_0) {
+            component_ptr->output = component_ptr->input_3;
+        } else {
+            component_ptr->output = component_ptr->input_2;
         }
-        *C = input;
-        return;
+    } else if (component_ptr->select_0) {
+        component_ptr->output = component_ptr->input_1;
+    } else {
+        component_ptr->output = component_ptr->input_0;
     }
-    if (sel0) {
-        *B = input;
-        return;
-    }
-    *A = input;
 }
 
-void register_component(int *input, int* cs, int *clock, int *output) {
-    if (*cs && *clock) {
-        *output = *input;
+void mux_8_to_1_action(mux_8_to_1_component_ptr component_ptr) {
+    if (component_ptr->select_2) {
+        if (component_ptr->select_1) {
+            if (component_ptr->select_0) {
+                // 1 1 1
+                component_ptr->output = component_ptr->input_7;
+            } else {
+                // 1 1 0
+                component_ptr->output = component_ptr->input_6;
+            }
+        } else if (component_ptr->select_0) {
+            // 1 0 1
+            component_ptr->output = component_ptr->input_5;
+        } else {
+            // 1 0 0
+            component_ptr->output = component_ptr->input_4;
+        }
+    } else {
+        if (component_ptr->select_1) {
+            if (component_ptr->select_0) {
+                // 0 1 1
+                component_ptr->output = component_ptr->input_3;
+            } else {
+                // 0 1 0
+                component_ptr->output = component_ptr->input_2;
+            }
+        } else if (component_ptr->select_0) {
+            // 0 0 1
+            component_ptr->output = component_ptr->input_1;
+        } else {
+            // 0 0 0
+            component_ptr->output = component_ptr->input_0;
+        }
+    }
+}
+
+void demux_2_to_4_action(demux_2_to_4_component_ptr component_ptr) {
+    if (component_ptr->select_1) {
+        if (component_ptr->select_0) {
+            component_ptr->output_3 = component_ptr->input;
+        } else {
+            component_ptr->output_2 = component_ptr->input;
+        }
+    } else {
+        if (component_ptr->select_0) {
+            component_ptr->output_1 = component_ptr->input;
+        } else {
+            component_ptr->output_0 = component_ptr->input;
+        }
+    }
+}
+
+void register_component_action(register_component_ptr component_ptr) {
+    if (component_ptr->select && component_ptr->clock) {
+        component_ptr->output = component_ptr->input;
     }
 }
