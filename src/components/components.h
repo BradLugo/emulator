@@ -24,6 +24,18 @@ typedef struct xor_component {
     unsigned int output;
 } *xor_component_ptr;
 
+typedef struct adder_subtractor_component {
+    // TODO :: Fix the unsigned ints
+    int input_0;
+    int input_1;
+    unsigned int input_2;
+    int output;
+    unsigned int carry;
+    unsigned int sign;
+    unsigned int zero;
+    unsigned int overflow;
+} *adder_subtractor_component_ptr;
+
 typedef struct mux_2_to_1_component {
     unsigned int input_0;
     unsigned int input_1;
@@ -66,6 +78,7 @@ typedef struct demux_2_to_4_component {
     unsigned int output_3;
 } *demux_2_to_4_component_ptr;
 
+typedef struct register_component {
     unsigned int input;
     unsigned int select;
     unsigned int clock;
@@ -79,6 +92,8 @@ void or_action(or_component_ptr component_ptr);
 void not_action(not_component_ptr component_ptr);
 
 void xor_action(xor_component_ptr component_ptr);
+
+void adder_subtractor_action(adder_subtractor_component_ptr);
 
 void mux_2_to_1_action(mux_2_to_1_component_ptr component_ptr);
 

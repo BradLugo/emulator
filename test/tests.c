@@ -108,71 +108,76 @@ void test_xor(void) {
 }
 
 void test_adder_subtractor() {
-    int a = 5;
-    int b = 6;
-    int cin = 0;
-    int out = 0;
-    int carry = 0;
-    int sign = 0;
-    int zero = 0;
-    int overflow = 0;
+    // TODO :: Fix the unsigned ints
+    adder_subtractor_component_ptr component_ptr = (adder_subtractor_component_ptr)
+            malloc(sizeof(struct adder_subtractor_component));
+    component_ptr->output = 0;
 
-    adder_subtractor(&a, &b, &cin, &out, &carry, &sign, &zero, &overflow);
-    TEST_ASSERT_EQUAL(11, out);
-    TEST_ASSERT_EQUAL(0, carry);
-    TEST_ASSERT_EQUAL(0, sign);
-    TEST_ASSERT_EQUAL(0, zero);
-    TEST_ASSERT_EQUAL(0, overflow);
+    component_ptr->input_0 = 5;
+    component_ptr->input_1 = 6;
+    component_ptr->input_2 = 0;
+    component_ptr->carry = 0;
+    component_ptr->sign = 0;
+    component_ptr->zero = 0;
+    component_ptr->overflow = 0;
+    adder_subtractor_action(component_ptr);
+    TEST_ASSERT_EQUAL(11, component_ptr->output);
+    TEST_ASSERT_EQUAL(0, component_ptr->carry);
+    TEST_ASSERT_EQUAL(0, component_ptr->sign);
+    TEST_ASSERT_EQUAL(0, component_ptr->zero);
+    TEST_ASSERT_EQUAL(0, component_ptr->overflow);
 
-    a = 255;
-    adder_subtractor(&a, &b, &cin, &out, &carry, &sign, &zero, &overflow);
-    TEST_ASSERT_EQUAL(261, out);
-    TEST_ASSERT_EQUAL(1, carry);
-    TEST_ASSERT_EQUAL(0, sign);
-    TEST_ASSERT_EQUAL(0, zero);
-    TEST_ASSERT_EQUAL(0, overflow);
+    component_ptr->input_0 = 255;
+    adder_subtractor_action(component_ptr);
+    TEST_ASSERT_EQUAL(261, component_ptr->output);
+    TEST_ASSERT_EQUAL(1, component_ptr->carry);
+    TEST_ASSERT_EQUAL(0, component_ptr->sign);
+    TEST_ASSERT_EQUAL(0, component_ptr->zero);
+    TEST_ASSERT_EQUAL(0, component_ptr->overflow);
 
-    a = 511;
-    adder_subtractor(&a, &b, &cin, &out, &carry, &sign, &zero, &overflow);
-    TEST_ASSERT_EQUAL(517, out);
-    TEST_ASSERT_EQUAL(0, carry);
-    TEST_ASSERT_EQUAL(0, sign);
-    TEST_ASSERT_EQUAL(0, zero);
-    TEST_ASSERT_EQUAL(1, overflow);
+    component_ptr->input_0 = 511;
+    adder_subtractor_action(component_ptr);
+    TEST_ASSERT_EQUAL(517, component_ptr->output);
+    TEST_ASSERT_EQUAL(0, component_ptr->carry);
+    TEST_ASSERT_EQUAL(0, component_ptr->sign);
+    TEST_ASSERT_EQUAL(0, component_ptr->zero);
+    TEST_ASSERT_EQUAL(1, component_ptr->overflow);
 
-    a = 5;
-    cin = 1;
-    adder_subtractor(&a, &b, &cin, &out, &carry, &sign, &zero, &overflow);
-    TEST_ASSERT_EQUAL(-1, out);
-    TEST_ASSERT_EQUAL(0, carry);
-    TEST_ASSERT_EQUAL(1, sign);
-    TEST_ASSERT_EQUAL(0, zero);
-    TEST_ASSERT_EQUAL(0, overflow);
+    component_ptr->input_0 = 5;
+    component_ptr->input_2 = 1;
+    adder_subtractor_action(component_ptr);
+    TEST_ASSERT_EQUAL(-1, component_ptr->output);
+    TEST_ASSERT_EQUAL(0, component_ptr->carry);
+    TEST_ASSERT_EQUAL(1, component_ptr->sign);
+    TEST_ASSERT_EQUAL(0, component_ptr->zero);
+    TEST_ASSERT_EQUAL(0, component_ptr->overflow);
 
-    a = 6;
-    adder_subtractor(&a, &b, &cin, &out, &carry, &sign, &zero, &overflow);
-    TEST_ASSERT_EQUAL(0, out);
-    TEST_ASSERT_EQUAL(0, carry);
-    TEST_ASSERT_EQUAL(0, sign);
-    TEST_ASSERT_EQUAL(1, zero);
-    TEST_ASSERT_EQUAL(0, overflow);
+    component_ptr->input_0 = 6;
+    adder_subtractor_action(component_ptr);
+    TEST_ASSERT_EQUAL(0, component_ptr->output);
+    TEST_ASSERT_EQUAL(0, component_ptr->carry);
+    TEST_ASSERT_EQUAL(0, component_ptr->sign);
+    TEST_ASSERT_EQUAL(1, component_ptr->zero);
+    TEST_ASSERT_EQUAL(0, component_ptr->overflow);
 
-    b = 545;
-    adder_subtractor(&a, &b, &cin, &out, &carry, &sign, &zero, &overflow);
-    TEST_ASSERT_EQUAL(-539, out);
-    TEST_ASSERT_EQUAL(0, carry);
-    TEST_ASSERT_EQUAL(1, sign);
-    TEST_ASSERT_EQUAL(0, zero);
-    TEST_ASSERT_EQUAL(1, overflow);
+    component_ptr->input_1 = 545;
+    adder_subtractor_action(component_ptr);
+    TEST_ASSERT_EQUAL(-539, component_ptr->output);
+    TEST_ASSERT_EQUAL(0, component_ptr->carry);
+    TEST_ASSERT_EQUAL(1, component_ptr->sign);
+    TEST_ASSERT_EQUAL(0, component_ptr->zero);
+    TEST_ASSERT_EQUAL(1, component_ptr->overflow);
 
-    a = 7;
-    b = 6;
-    adder_subtractor(&a, &b, &cin, &out, &carry, &sign, &zero, &overflow);
-    TEST_ASSERT_EQUAL(1, out);
-    TEST_ASSERT_EQUAL(0, carry);
-    TEST_ASSERT_EQUAL(0, sign);
-    TEST_ASSERT_EQUAL(0, zero);
-    TEST_ASSERT_EQUAL(0, overflow);
+    component_ptr->input_0 = 7;
+    component_ptr->input_1 =6;
+    adder_subtractor_action(component_ptr);
+    TEST_ASSERT_EQUAL(1, component_ptr->output);
+    TEST_ASSERT_EQUAL(0, component_ptr->carry);
+    TEST_ASSERT_EQUAL(0, component_ptr->sign);
+    TEST_ASSERT_EQUAL(0, component_ptr->zero);
+    TEST_ASSERT_EQUAL(0, component_ptr->overflow);
+
+    free(component_ptr);
 }
 
 void test_mux_2_to_1(void) {
@@ -676,7 +681,6 @@ int main(void) {
     RUN_TEST(test_or);
     RUN_TEST(test_not);
     RUN_TEST(test_xor);
-
     RUN_TEST(test_adder_subtractor);
 
     RUN_TEST(test_mux_2_to_1);

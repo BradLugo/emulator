@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include "components.h"
+#include "logger.h"
 
 void and_action(and_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "AND component action called");
 
-    char str[BUFFER_SIZE/2];
+    char str[BUFFER_SIZE / 2];
     sprintf(str, "Input 0 :: %d", component_ptr->input_0);
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Input 1 :: %d", component_ptr->input_1);
@@ -21,7 +22,7 @@ void and_action(and_component_ptr component_ptr) {
 void or_action(or_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "OR component action called");
 
-    char str[BUFFER_SIZE/2];
+    char str[BUFFER_SIZE / 2];
     sprintf(str, "Input 0 :: %d", component_ptr->input_0);
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Input 1 :: %d", component_ptr->input_1);
@@ -38,13 +39,13 @@ void or_action(or_component_ptr component_ptr) {
 void not_action(not_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "NOT component action called");
 
-    char str[BUFFER_SIZE/2];
+    char str[BUFFER_SIZE / 2];
     sprintf(str, "Input :: %d", component_ptr->input);
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Output before action :: %d", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 
-    component_ptr->output = ~ component_ptr->input;
+    component_ptr->output = ~component_ptr->input;
 
     sprintf(str, "Output after action :: %d\n", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
@@ -53,7 +54,7 @@ void not_action(not_component_ptr component_ptr) {
 void xor_action(xor_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "XOR component action called");
 
-    char str[BUFFER_SIZE/2];
+    char str[BUFFER_SIZE / 2];
     sprintf(str, "Input 0 :: %d", component_ptr->input_0);
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Input 1 :: %d", component_ptr->input_1);
@@ -61,35 +62,64 @@ void xor_action(xor_component_ptr component_ptr) {
     sprintf(str, "Output before action :: %d", component_ptr->output);
     log_message(DEBUG_LOG_LEVEL, str);
 
-}
     component_ptr->output = component_ptr->input_0 ^ component_ptr->input_1;
-void adder_subtractor(int *a, int *b, int *cin, int *out, int *carry, int *sign, int *zero, int *overflow) {
-    if (*cin) {
-        *out = *a - *b;
+
+    sprintf(str, "Output after action :: %d\n", component_ptr->output);
+    log_message(DEBUG_LOG_LEVEL, str);
+}
+
+void adder_subtractor_action(adder_subtractor_component_ptr component_ptr) {
+    log_message(INFO_LOG_LEVEL, "ADDER-SUBTRACTOR component action called");
+    log_message(INFO_LOG_LEVEL, "Note: This component may be used as a stack adder in which case, "
+                                "the flags don't really matter");
+
+    char str[BUFFER_SIZE / 2];
+
+    if (component_ptr->input_2) {
+        log_message(DEBUG_LOG_LEVEL, "Determined to subtract");
+        component_ptr->output = component_ptr->input_0 - component_ptr->input_1;
     } else {
-        *out = *a + *b;
+        log_message(DEBUG_LOG_LEVEL, "Determined to add");
+        component_ptr->output = component_ptr->input_0 + component_ptr->input_1;
     }
 
-    if (*out >= 0) {
-        *carry = (*out >> 8) & 1;
-    } else {
-        *carry = !((*out >> 8) & 1);
+    if (component_ptr->output > 511) {
+        log_message(FATAL_LOG_LEVEL, "Outside of 8-bits and buffer overflow");
     }
-    sprintf(str, "Output after action :: %d\n", component_ptr->output);
-    *sign = *out < 0;
-    *zero = *out == 0;
+
+    log_message(DEBUG_LOG_LEVEL, "Setting carry flag");
+    if (component_ptr->output >= 0) {
+        component_ptr->carry = (component_ptr->output >> 8) & 1;
+    } else {
+        component_ptr->carry = !((component_ptr->output >> 8) & 1);
+    }
+    sprintf(str, "Carry flag :: %d", component_ptr->carry);
     log_message(DEBUG_LOG_LEVEL, str);
-    if (*out >= 0) {
-        *overflow = (*out >> 9) & 1;
+
+    log_message(DEBUG_LOG_LEVEL, "Setting sign flag");
+    component_ptr->sign = component_ptr->output < 0;
+    sprintf(str, "Sign flag :: %d", component_ptr->sign);
+    log_message(DEBUG_LOG_LEVEL, str);
+
+    log_message(DEBUG_LOG_LEVEL, "Setting zero flag");
+    component_ptr->zero = component_ptr->output == 0;
+    sprintf(str, "Zero flag :: %d", component_ptr->zero);
+    log_message(DEBUG_LOG_LEVEL, str);
+
+    log_message(DEBUG_LOG_LEVEL, "Setting overflow flag");
+    if (component_ptr->output >= 0) {
+        component_ptr->overflow = (component_ptr->output >> 9) & 1;
     } else {
-        *overflow = !((*out >> 9) & 1);
+        component_ptr->overflow = !((component_ptr->output >> 9) & 1);
     }
+    sprintf(str, "Overflow flag :: %d\n", component_ptr->overflow);
+    log_message(DEBUG_LOG_LEVEL, str);
 }
 
 void mux_2_to_1_action(mux_2_to_1_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "MUX 2-to-1 component action called");
 
-    char str[BUFFER_SIZE/2];
+    char str[BUFFER_SIZE / 2];
     sprintf(str, "Select 0 :: %d", component_ptr->select_0);
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Input 0 :: %d", component_ptr->input_0);
@@ -118,7 +148,7 @@ void mux_2_to_1_action(mux_2_to_1_component_ptr component_ptr) {
 void mux_4_to_1_action(mux_4_to_1_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "MUX 4-to-1 component action called");
 
-    char str[BUFFER_SIZE/2];
+    char str[BUFFER_SIZE / 2];
     sprintf(str, "Select 0 :: %d", component_ptr->select_0);
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Select 1 :: %d", component_ptr->select_1);
@@ -170,7 +200,7 @@ void mux_4_to_1_action(mux_4_to_1_component_ptr component_ptr) {
 void mux_8_to_1_action(mux_8_to_1_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "MUX 8-to-1 component action called");
 
-    char str[BUFFER_SIZE/2];
+    char str[BUFFER_SIZE / 2];
     sprintf(str, "Select 0 :: %d", component_ptr->select_0);
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Select 1 :: %d", component_ptr->select_1);
@@ -267,7 +297,7 @@ void mux_8_to_1_action(mux_8_to_1_component_ptr component_ptr) {
 void demux_2_to_4_action(demux_2_to_4_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "DEMUX 2-to-4 component action called");
 
-    char str[BUFFER_SIZE/2];
+    char str[BUFFER_SIZE / 2];
     sprintf(str, "Select 0 :: %d", component_ptr->select_0);
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Select 1 :: %d", component_ptr->select_1);
@@ -310,7 +340,7 @@ void demux_2_to_4_action(demux_2_to_4_component_ptr component_ptr) {
 void register_component_action(register_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "Register component action called");
 
-    char str[BUFFER_SIZE/2];
+    char str[BUFFER_SIZE / 2];
     sprintf(str, "Input :: %d", component_ptr->input);
     log_message(DEBUG_LOG_LEVEL, str);
     sprintf(str, "Select :: %d", component_ptr->select);
