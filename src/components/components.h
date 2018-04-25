@@ -2,87 +2,87 @@
 #define COMPONENTS_H
 
 typedef struct and_component {
-    unsigned int input_0;
-    unsigned int input_1;
-    unsigned int output;
+    unsigned int *input_0;
+    unsigned int *input_1;
+    unsigned int *output;
 } *and_component_ptr;
 
 typedef struct or_component {
-    unsigned int input_0;
-    unsigned int input_1;
-    unsigned int output;
+    unsigned int *input_0;
+    unsigned int *input_1;
+    unsigned int *output;
 } *or_component_ptr;
 
 typedef struct not_component {
-    unsigned int input;
-    unsigned int output;
+    unsigned int *input;
+    unsigned int *output;
 } *not_component_ptr;
 
 typedef struct xor_component {
-    unsigned int input_0;
-    unsigned int input_1;
-    unsigned int output;
+    unsigned int *input_0;
+    unsigned int *input_1;
+    unsigned int *output;
 } *xor_component_ptr;
 
 typedef struct adder_subtractor_component {
     // TODO :: Fix the unsigned ints
-    int input_0;
-    int input_1;
-    unsigned int input_2;
-    int output;
-    unsigned int carry;
-    unsigned int sign;
-    unsigned int zero;
-    unsigned int overflow;
+    int *input_0;
+    int *input_1;
+    unsigned int *input_2;
+    int *output;
+    unsigned int *carry;
+    unsigned int *sign;
+    unsigned int *zero;
+    unsigned int *overflow;
 } *adder_subtractor_component_ptr;
 
 typedef struct mux_2_to_1_component {
-    unsigned int input_0;
-    unsigned int input_1;
-    unsigned int select_0;
-    unsigned int output;
+    unsigned int *input_0;
+    unsigned int *input_1;
+    unsigned int *select_0;
+    unsigned int *output;
 } *mux_2_to_1_component_ptr;
 
 typedef struct mux_4_to_1_component {
-    unsigned int input_0;
-    unsigned int input_1;
-    unsigned int input_2;
-    unsigned int input_3;
-    unsigned int select_0;
-    unsigned int select_1;
-    unsigned int output;
+    unsigned int *input_0;
+    unsigned int *input_1;
+    unsigned int *input_2;
+    unsigned int *input_3;
+    unsigned int *select_0;
+    unsigned int *select_1;
+    unsigned int *output;
 } *mux_4_to_1_component_ptr;
 
 typedef struct mux_8_to_1_component {
-    unsigned int input_0;
-    unsigned int input_1;
-    unsigned int input_2;
-    unsigned int input_3;
-    unsigned int input_4;
-    unsigned int input_5;
-    unsigned int input_6;
-    unsigned int input_7;
-    unsigned int select_0;
-    unsigned int select_1;
-    unsigned int select_2;
-    unsigned int output;
+    unsigned int *input_0;
+    unsigned int *input_1;
+    unsigned int *input_2;
+    unsigned int *input_3;
+    unsigned int *input_4;
+    unsigned int *input_5;
+    unsigned int *input_6;
+    unsigned int *input_7;
+    unsigned int *select_0;
+    unsigned int *select_1;
+    unsigned int *select_2;
+    unsigned int *output;
 } *mux_8_to_1_component_ptr;
 
 typedef struct demux_2_to_4_component {
-    unsigned int input;
-    unsigned int select_0;
-    unsigned int select_1;
-    unsigned int output_0;
-    unsigned int output_1;
-    unsigned int output_2;
-    unsigned int output_3;
+    unsigned int *input;
+    unsigned int *select_0;
+    unsigned int *select_1;
+    unsigned int *output_0;
+    unsigned int *output_1;
+    unsigned int *output_2;
+    unsigned int *output_3;
 } *demux_2_to_4_component_ptr;
 
 typedef struct register_component {
-    unsigned int input;
-    unsigned int select;
-    unsigned int clock;
-    unsigned int output;
+    unsigned int *input;
+    unsigned int *select;
+    unsigned int *clock;
+    unsigned int *output;
 } *register_component_ptr;
 
 void and_action(and_component_ptr component_ptr);
