@@ -4,8 +4,8 @@
 #include <memory.h>
 #include "logger.h"
 
-char *generate_log_message(const LOG_LEVEL log_level, const char *message, time_t now, int buffer) {
-    char str[buffer];
+char *generate_log_message(const LOG_LEVEL log_level, const char *message, time_t now) {
+    char str[BUFFER_SIZE];
     char *out;
 
     switch (log_level) {
@@ -43,7 +43,7 @@ void log_message(const LOG_LEVEL log_level, const char *message) {
     time_t now;
     time(&now);
 
-    char *log_message = generate_log_message(log_level, message, now, 1024);
+    char *log_message = generate_log_message(log_level, message, now);
     puts(log_message);
 
     free(log_message);
