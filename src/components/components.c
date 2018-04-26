@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "components.h"
-#include "logger.h"
-
+#include "../logger/logger.h"
 void and_action(and_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "AND component action called");
 

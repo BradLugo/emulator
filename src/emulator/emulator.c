@@ -201,7 +201,7 @@ void emulator() {
     mux_2_to_1_component_ptr U_117 = (mux_2_to_1_component_ptr)  malloc(sizeof(struct mux_2_to_1_component));
     U_117->select_0 = &U_117_select_0;
     U_117->input_0 = &data;
-    U_117->input_1 = &U_107;
+    U_117->input_1 = &U_107;//This can be set during the while loop!
     U_117->output = &U_117_output;
 
     unsigned int U_111_output = 0;
@@ -330,7 +330,7 @@ void emulator() {
     register_action(U_15);
     register_action(U_110);
 
-    free(U_500);
+//    free(U_500);
     free(U_10);
     free(U_11);
     free(U_12);
@@ -353,7 +353,7 @@ void emulator() {
     free(U_111);
     free(U_115);
     free(U_220);
-    free(U_221);
+//    free(U_221);
     free(U_120);
     free(U_118_A);
     free(U_118_B);
