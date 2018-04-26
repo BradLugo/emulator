@@ -1,8 +1,8 @@
 #ifndef EMULATOR_EMULATOR_H
 #define EMULATOR_EMULATOR_H
 
-int half_adder(int a, int b, int *cout);
+void data_line_action(unsigned int *data_line, unsigned int *input_0, unsigned int *input_1);
 
-int full_adder(int a, int b, int cin, int *cout);
+void emulator();
 
 #endif //EMULATOR_EMULATOR_H
