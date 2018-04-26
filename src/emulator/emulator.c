@@ -10,7 +10,8 @@ void emulator() {
     unsigned int clock = 0;
     unsigned int stack = 2;
 
-    unsigned int memory = 0;
+    //unsigned int memory = 0;
+    unsigned char *MEMORY[16];
     unsigned int flags = 0;
     unsigned int instruction = 0;
 

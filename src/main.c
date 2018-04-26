@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "emulator.h"
-#include "components.h"
+#include "emulator/emulator.h"
+#include "components/components.h"
 
 int main() {
     printf("Hello, World!\n");
@@ -10,8 +10,8 @@ int main() {
     int b = 6;
     int s0 = 0;
 
-    printf("Before :: %d %d\n", half_adder(0, 1, &c), c);
-    printf("After :: %d\n", c);
+    //printf("Before :: %d %d\n", half_adder(0, 1, &c), c);
+    //printf("After :: %d\n", c);
     //printf("mux 2to1 0 1 switch false => %d\n", mux_2_to_1(0, 1, s0));
 
     int input = 1;

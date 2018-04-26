@@ -85,6 +85,8 @@ typedef struct register_component {
     unsigned int *output;
 } *register_component_ptr;
 
+
+
 void and_action(and_component_ptr component_ptr);
 
 void or_action(or_component_ptr component_ptr);
