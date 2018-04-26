@@ -650,25 +650,25 @@ void test_register_component(void) {
     component_ptr->select = &select;
     component_ptr->output = &output;
 
-    register_component_action(component_ptr);
+    register_action(component_ptr);
     TEST_ASSERT_EQUAL(0, *(component_ptr->output));
 
     *(component_ptr->input) = 1;
     *(component_ptr->clock) = 0;
     *(component_ptr->select) = 0;
-    register_component_action(component_ptr);
+    register_action(component_ptr);
     TEST_ASSERT_EQUAL(0, *(component_ptr->output));
 
     *(component_ptr->input) = 1;
     *(component_ptr->clock) = 1;
     *(component_ptr->select) = 0;
-    register_component_action(component_ptr);
+    register_action(component_ptr);
     TEST_ASSERT_EQUAL(0, *(component_ptr->output));
 
     *(component_ptr->input) = 1;
     *(component_ptr->clock) = 1;
     *(component_ptr->select) = 1;
-    register_component_action(component_ptr);
+    register_action(component_ptr);
     TEST_ASSERT_EQUAL(1, *(component_ptr->output));
 
     free(component_ptr);

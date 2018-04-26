@@ -337,7 +337,7 @@ void demux_2_to_4_action(demux_2_to_4_component_ptr component_ptr) {
     log_message(DEBUG_LOG_LEVEL, str);
 }
 
-void register_component_action(register_component_ptr component_ptr) {
+void register_action(register_component_ptr component_ptr) {
     log_message(INFO_LOG_LEVEL, "Register component action called");
 
     char str[BUFFER_SIZE / 2];

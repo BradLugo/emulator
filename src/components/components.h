@@ -103,6 +103,6 @@ void mux_8_to_1_action(mux_8_to_1_component_ptr component_ptr);
 
 void demux_2_to_4_action(demux_2_to_4_component_ptr component_ptr);
 
-void register_component_action(register_component_ptr component_ptr);
+void register_action(register_component_ptr component_ptr);
 
 #endif //COMPONENTS_H
