@@ -86,6 +86,11 @@ typedef struct register_component {
 } *register_component_ptr;
 
 
+typedef struct MEMORY{
+    unsigned char *MEMORY[16];
+    unsigned char *eprom;
+    unsigned int *chip_sel;
+}
 
 void and_action(and_component_ptr component_ptr);
 
