@@ -86,11 +86,34 @@ typedef struct register_component {
 } *register_component_ptr;
 
 
-typedef struct MEMORY{
+typedef struct memory_component{
     unsigned char *MEMORY[16];
     unsigned char *eprom;
+    unsigned int *offset;
     unsigned int *chip_sel;
-}
+    unsigned int *output;
+} *memory_component_ptr;
+
+typedef struct transmission_gate_component{
+    unsigned int *output_enable;
+    unsigned int *data_line_out;
+} transmission_gate_component;
+
+typedef struct decoder_4_to_16_component{
+    unsigned int *input_0;
+    unsigned int *input_1;
+    unsigned int *input_2;
+    unsigned int *input_3;
+
+    unsigned int *output;
+} decoder_4_to_16_component_ptr;
+
+
+
+
+
+
+
 
 void and_action(and_component_ptr component_ptr);
 
@@ -111,5 +134,7 @@ void mux_8_to_1_action(mux_8_to_1_component_ptr component_ptr);
 void demux_2_to_4_action(demux_2_to_4_component_ptr component_ptr);
 
 void register_action(register_component_ptr component_ptr);
+
+void init_memory(unsigned char *memory, char *filename);
 
 #endif //COMPONENTS_H

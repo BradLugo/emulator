@@ -1,17 +1,20 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "emulator.h"
 #include "../components/components.h"
+#include <string.h>
 
 void data_line_action(unsigned int *data_line, unsigned int *input_0, unsigned int *input_1) {
     *data_line = (*input_0 << 8) | *input_1;
 }
 
-void emulator() {
+void emulator(char *filename) {
+    int i;
     unsigned int clock = 0;
     unsigned int stack = 2;
 
-    //unsigned int memory = 0;
-    unsigned char *MEMORY[16];
+    unsigned int memory = 0;
+    //unsigned char *MEMORY[16];
     unsigned int flags = 0;
     unsigned int instruction = 0;
 
@@ -20,6 +23,22 @@ void emulator() {
     unsigned int U_500_inst_len = 0;
     unsigned int U_500_offset = 0;
     unsigned int U_500_instruction = 0;
+    unsigned int *U_500_mem_0;
+    unsigned int *U_500_mem_1;
+    unsigned int *U_500_mem_2;
+    unsigned int *U_500_mem_3;
+
+    memory_component_ptr U_200s = (memory_component_ptr) malloc(sizeof(struct memory_component));
+
+    for(i = 0;i < 16;i++){
+        if(i== 14)continue;
+        U_200s->MEMORY[i] = (unsigned char*) malloc(0x1000);
+    }
+
+    init_memory(U_200s->MEMORY[15], filename);
+
+    U_200s->eprom = U_200s->MEMORY[15];
+
     // Wire U_500
 
     unsigned int U_114_output_0 = 0;
@@ -147,6 +166,7 @@ void emulator() {
     U_100->input_0 = &U_112_output;
     U_100->input_1 = &U_113_output;
     U_100->output = &U_100_output;
+    U_200s->chip_sel = U_100->output;
 
 
     unsigned int U_101_output = 0;
@@ -248,6 +268,8 @@ void emulator() {
 
     // Wire U_221
     // TODO :: Tranmission gate
+    //transmission_gate_component_ptr U_221 = (transmission_gate_component_ptr) malloc(sizeof (struct transmission_gate_component));
+
 
     unsigned int U_120_select_0 = 0;
     // Wire U_120
@@ -294,7 +316,20 @@ void emulator() {
 
     // This is where the loop should run
     // while()
+    unsigned int output_enable;
+    unsigned int select = 1;
+    unsigned int no_select = 0;
+    U_500_instruction = 0xf000;
 
+    U_116->select_1 = &select;
+    U_116->select_0 = &no_select;
+    U_116->input_2 = &U_500_instruction;
+    mux_4_to_1_action(U_116);
+    U_200s->chip_sel = U_116->output;
+    memory_action(U_200s);
+
+    printf("End of test");
+    getchar();
     // This is *generally* how the loop should run
 
     mux_8_to_1_action(U_112);
@@ -320,7 +355,7 @@ void emulator() {
     mux_4_to_1_action(U_115);
     mux_4_to_1_action(U_220);
 
-    mux_8_to_1_action(U_118_A);
+    //mux_8_to_1_action(U_118_A);
     mux_8_to_1_action(U_118_B);
 
     register_action(U_10);
@@ -330,6 +365,8 @@ void emulator() {
     register_action(U_14);
     register_action(U_15);
     register_action(U_110);
+    printf("Before seg fault");
+    getchar();
 
 //    free(U_500);
     free(U_10);
@@ -338,9 +375,9 @@ void emulator() {
     free(U_13);
     free(U_14);
     free(U_15);
-    free(U_110);
-    free(U_112);
-    free(U_113);
+    //free(U_110);
+    //free(U_112);
+    //free(U_113);
     free(U_107);
     free(U_105);
     free(U_100);
@@ -359,4 +396,23 @@ void emulator() {
     free(U_118_A);
     free(U_118_B);
     free(U_114);
+}
+
+
+void init_memory(unsigned char *memory, char *filename){
+    FILE *file;
+    if((file = fopen(filename, "r")) == NULL){
+        printf("Unable to open file");
+        exit(-1);
+    }
+    printf("FILE opened");
+
+    //read file instructions into EPROM Location
+    int j = 0;
+    unsigned char buff;
+    while(fscanf(file, "%02X",(unsigned int*) &buff) != EOF && (j < 0x1000)){
+        memcpy(&memory[j], &buff, sizeof(unsigned char));
+        printf("GOT: %x\n", buff);
+        j++;
+    }
 }
