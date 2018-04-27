@@ -97,7 +97,7 @@ typedef struct memory_component{
 typedef struct transmission_gate_component{
     unsigned int *output_enable;
     unsigned int *data_line_out;
-} transmission_gate_component;
+} *transmission_gate_component_ptr;
 
 typedef struct decoder_4_to_16_component{
     unsigned int *input_0;
@@ -107,8 +107,6 @@ typedef struct decoder_4_to_16_component{
 
     unsigned int *output;
 } decoder_4_to_16_component_ptr;
-
-
 
 
 
@@ -137,4 +135,5 @@ void register_action(register_component_ptr component_ptr);
 
 void init_memory(unsigned char *memory, char *filename);
 
+void memory_action(memory_component_ptr component_ptr);
 #endif //COMPONENTS_H

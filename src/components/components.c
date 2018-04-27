@@ -362,6 +362,7 @@ void memory_action(memory_component_ptr component_ptr){
 
     char str[BUFFER_SIZE / 2];
     sprintf(str, "Selected chip %d", *(component_ptr->chip_sel)/0x1000);
-    log_message(INFOR_LOG_LEVEL, str);
+    log_message(INFO_LOG_LEVEL, str);
+
 
 }

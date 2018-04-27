@@ -269,7 +269,11 @@ void emulator(char *filename) {
     // Wire U_221
     // TODO :: Tranmission gate
     //transmission_gate_component_ptr U_221 = (transmission_gate_component_ptr) malloc(sizeof (struct transmission_gate_component));
-
+    unsigned int U_221_output;
+    unsigned int U_221_oe;
+    transmission_gate_component_ptr U_221 = (transmission_gate_component_ptr) malloc(sizeof(struct transmission_gate_component));
+    U_221->data_line_out = &U_221_output;
+    U_221->output_enable = &U_221_oe;
 
     unsigned int U_120_select_0 = 0;
     // Wire U_120
@@ -328,10 +332,11 @@ void emulator(char *filename) {
     U_200s->chip_sel = U_116->output;
     memory_action(U_200s);
 
+
     printf("End of test");
     getchar();
     // This is *generally* how the loop should run
-
+/*
     mux_8_to_1_action(U_112);
     mux_8_to_1_action(U_113);
 
@@ -367,7 +372,7 @@ void emulator(char *filename) {
     register_action(U_110);
     printf("Before seg fault");
     getchar();
-
+*/
 //    free(U_500);
     free(U_10);
     free(U_11);
@@ -375,9 +380,9 @@ void emulator(char *filename) {
     free(U_13);
     free(U_14);
     free(U_15);
-    //free(U_110);
-    //free(U_112);
-    //free(U_113);
+    free(U_110);
+    free(U_112);
+    free(U_113);
     free(U_107);
     free(U_105);
     free(U_100);
