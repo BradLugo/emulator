@@ -28,7 +28,9 @@ void emulator(char *filename) {
     unsigned int *U_500_mem_2;
     unsigned int *U_500_mem_3;
 
+    unsigned char ins;
     memory_component_ptr U_200s = (memory_component_ptr) malloc(sizeof(struct memory_component));
+    U_200s->output = &ins;
 
     for(i = 0;i < 16;i++){
         if(i== 14)continue;
@@ -331,10 +333,82 @@ void emulator(char *filename) {
     mux_4_to_1_action(U_116);
     U_200s->chip_sel = U_116->output;
     memory_action(U_200s);
+    while(1){
+        switch (ins){
+            case 0x10:
+                printf("Unimplemented instruction");
+            case 0x11:
+                printf("Unimplemented instruction");
+            case 0x12:
+                printf("Unimplemented instruction");
+                case 0x13:
+                printf("Unimplemented instruction");
+                case 0x20:
+                printf("Unimplemented instruction");
+                case 0x21:
+                printf("Unimplemented instruction");
+                case 0x22:
+                printf("Unimplemented instruction");
+                case 0x23:
+                printf("Unimplemented instruction");
+                case 0x30:
+                printf("Unimplemented instruction");
+                case 0x31:
+                printf("Unimplemented instruction");
+                case 0x32:
+                printf("Unimplemented instruction");
+                case 0x33:
+                printf("Unimplemented instruction");
+                case 0x40:
+                printf("Unimplemented instruction");
+                case 0x43:
+                printf("Unimplemented instruction");
+                case 0x50:
+                printf("Unimplemented instruction");
+                case 0x51:
+                printf("Unimplemented instruction");
+                case 0x52:
+                printf("Unimplemented instruction");
+                case 0x53:
+                printf("Unimplemented instruction");
+                case 0x60:
+                printf("Unimplemented instruction");
+                case 0x61:
+                printf("Unimplemented instruction");
+                case 0x62:
+                printf("Unimplemented instruction");
+                case 0x63:
+                printf("Unimplemented instruction");
+                case 0x70:
+                printf("Unimplemented instruction");
+                case 0x71:
+                printf("Unimplemented instruction");
+                case 0x72:
+                printf("Unimplemented instruction");
+                case 0x73:
+                printf("Unimplemented instruction");
+                case 0x80:
+                printf("Unimplemented instruction");
+                case 0x81:
+                printf("Unimplemented instruction");
+                case 0x82:
+                printf("Unimplemented instruction");
+                case 0x83:
+                printf("Unimplemented instruction");
+                case 0xB8:
+                case 0xB9:
+            default:
+                printf("Unsupported instruction");
+                exit(-1);
+                }
+    }
+
 
 
     printf("End of test");
     getchar();
+
+
     // This is *generally* how the loop should run
 /*
     mux_8_to_1_action(U_112);

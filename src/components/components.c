@@ -364,5 +364,12 @@ void memory_action(memory_component_ptr component_ptr){
     sprintf(str, "Selected chip %d", *(component_ptr->chip_sel)/0x1000);
     log_message(INFO_LOG_LEVEL, str);
 
+    //assumes 32 bit int
+    component_ptr->offset = *(component_ptr->offset) - (*(component_ptr->chip_sel)/ 0x1000) * 0x1000;
+    component_ptr->chip_sel = *(component_ptr->chip_sel)/0x1000;
+
+    component_ptr->output = component_ptr->MEMORY[*(component_ptr->chip_sel)][*(component_ptr->offset)];
+    sprintf(str, "Currently at at %d %d", *(component_ptr->chip_sel), *(component_ptr->offset));
+    log_message(DEBUG_LOG_LEVEL, str);
 
 }
